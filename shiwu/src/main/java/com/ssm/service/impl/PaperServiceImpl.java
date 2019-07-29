@@ -21,6 +21,11 @@ public class PaperServiceImpl implements PaperService {
     @Autowired
     private PaperDao paperDao;
 
+    /**
+     *  @Transactional 要是只在接口上写, 接口的实现类就会继承下来、接口的实现类的具体方法,可以覆盖类声明处的设置
+     *
+     *   类级的注解、适用于类中所有的public的方法
+     */
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public int addPaper(Paper paper) {
