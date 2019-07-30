@@ -23,6 +23,9 @@ public class PaperController {
     @Autowired
     private PaperService paperService;
 
+    /**
+     * 查询所有
+     */
     @ResponseBody
     @RequestMapping(value = "/allPaper", produces = "application/json; charset=utf-8")
     public Object list() {
@@ -32,37 +35,39 @@ public class PaperController {
     }
 
 
-
+    /**
+     * 添加一条
+     */
     @RequestMapping(value = "/add", produces = "application/json; charset=utf-8")
     @ResponseBody
     public String addPaper() {
-
         Random rand = new Random();
-
-
         Paper paper = new Paper();
         paper.setPaperDetail("haha");
-        //paper.setPaperId(5);
         paper.setPaperName("我的书名字");
         paper.setPaperNum(rand.nextInt(100) + 1);
-        paperService.addPaper(paper);
-        return "插入一条数据";
+        int i = paperService.addPaper(paper);
+        return "插入一条数据 id是："+i;
     }
 
+    /**
+     * 删除一条
+     */
     @RequestMapping(value = "/del/{paperId}", produces = "application/json; charset=utf-8")
     @ResponseBody
     public String deletePaper(@PathVariable("paperId") Long id) {
         paperService.deletePaperById(id);
-        return "删除一条id是"+id+"数据";
+        return "删除一条数据id是"+id;
     }
 
 
-
+    /**
+     * 修改一条
+     */
     @RequestMapping(value = "/update/{id}", produces = "application/json; charset=utf-8")
     @ResponseBody
     public String updatePaper(@PathVariable("id") Long id) {
         Random rand = new Random();
-
         Paper paper = new Paper();
         paper.setPaperDetail("haha");
         paper.setPaperId(id);
@@ -70,7 +75,30 @@ public class PaperController {
         paper.setPaperNum(rand.nextInt(100) + 1);
         paperService.updatePaper(paper);
         //paper = paperService.queryById(paper.getPaperId());
-        return "修改了id是"+id+"的数据";
+        return "修改了一条数据id是："+id;
+    }
+
+    /**
+     * 插入一条，修改一条
+     */
+    @RequestMapping(value = "/addupdate/{id}", produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public String addupdatePaper(@PathVariable("id") Long id) {
+        Random rand = new Random();
+
+        Paper paper1 = new Paper();
+        paper1.setPaperDetail("haha");
+        paper1.setPaperName("我的书名字");
+        paper1.setPaperNum(rand.nextInt(100) + 1);
+
+        Paper paper2 = new Paper();
+        paper2.setPaperDetail("haha");
+        paper2.setPaperId(id);
+        paper2.setPaperName("我的书名字");
+        paper2.setPaperNum(rand.nextInt(100) + 1);
+
+        String s = paperService.addupdatePaper(paper1,paper2);
+        return s;
     }
 
 }
