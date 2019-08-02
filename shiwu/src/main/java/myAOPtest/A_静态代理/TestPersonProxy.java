@@ -1,4 +1,4 @@
-package myAOPtest.staticProxy;
+package myAOPtest.A_静态代理;
 
 import org.junit.jupiter.api.Test;
 
